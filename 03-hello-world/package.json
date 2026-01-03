@@ -1,0 +1,12 @@
+{
+  "name": "03-hello-world",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "purakhnath jyani",
+  "type": "commonjs",
+  "main": "hello.js",
+  "scripts": {
+    "start": "node hello.js"
+  }
+}
