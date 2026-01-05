@@ -1,0 +1,13 @@
+{
+  "name": "05-file-handling",
+  "version": "1.0.0",
+  "description": "",
+  "main": "file.js",
+  "scripts": {
+    "start": "node file.js"
+  },
+  "keywords": [],
+  "author": "purakhnath jyani",
+  "license": "ISC",
+  "type": "commonjs"
+}
