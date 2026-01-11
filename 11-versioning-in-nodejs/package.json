@@ -1,0 +1,15 @@
+{
+  "name": "11-versioning-in-nodejs",
+  "version": "1.0.0",
+  "description": "Versioning might seem like a basic topic, but from a Security and Stability standpoint, it is one of the most important concepts to master. If you aren't careful with those tiny numbers and symbols in your package.json, your entire server could break or even be compromised during a routine update.",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --watch index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
