@@ -1,0 +1,15 @@
+{
+  "name": "13-building-rest-api",
+  "version": "1.0.0",
+  "description": "building-rest-api",
+  "license": "ISC",
+  "author": "purakhnath jyani",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --watch index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
