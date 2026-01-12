@@ -1,0 +1,15 @@
+{
+  "name": "12-what-is-rest-api",
+  "version": "1.0.0",
+  "description": "What is a REST API?",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --watch index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
