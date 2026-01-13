@@ -12,74 +12,107 @@ app.use(express.urlencoded({ extended: true }));
 
 // /api/users -> API endpoint that returns JSON data
 
-
 app.get("/api/users", (req, res) => {
-    res.json(users);
+  res.json(users);
 });
-
 
 // /users -> returns an HTML page
 // Example of SSR (Server-Side Rendering)
 
-app.get("/users" , (req, res) => {
-    const html = `
+app.get("/users", (req, res) => {
+  const html = `
     <h1>Users</h1>
     <ul>
         ${users.map((user) => `<li>${user.first_name}</li>`).join("")}
     </ul>
-    `
-    res.send(html);
+    `;
+  res.send(html);
 });
 
-
 app.get("/api/users/:id", (req, res) => {
-    const { id } = req.params;
-    const user = users.find((user) => user.id === Number(id));
-    res.json(user);
+  const { id } = req.params;
+  const user = users.find((user) => user.id === Number(id));
+  res.json(user);
 });
 
 app.post("/api/users", (req, res) => {
-    const user = { id: users.length + 1, ...req.body };
-    users.push(user);
+  const user = { id: users.length + 1, ...req.body };
+  users.push(user);
 
-    fs.writeFile("./MOCK_DATA.json", JSON.stringify(users, null, 2), (err) => {
-        if (err) return res.status(500).json({ message: "File write failed" });
-        res.json({ message: "User created successfully" });
-    });
+  fs.writeFile("./MOCK_DATA.json", JSON.stringify(users, null, 2), (err) => {
+    if (err) return res.status(500).json({ message: "File write failed" });
+    res.json({ message: "User created successfully" });
+  });
 });
-
 
 app.patch("/api/users/:id", (req, res) => {
-    const { id } = req.params;
-    const { first_name, last_name, email } = req.body;
-    const user = users.find((user) => user.id === Number(id));
-    if (!user) return res.status(404).json({ message: "User not found" });
+  const { id } = req.params;
+  const { first_name, last_name, email } = req.body;
+  const user = users.find((user) => user.id === Number(id));
+  if (!user) return res.status(404).json({ message: "User not found" });
 
-    if (first_name) user.first_name = first_name;
-    if (last_name) user.last_name = last_name;
-    if (email) user.email = email;
+  if (first_name) user.first_name = first_name;
+  if (last_name) user.last_name = last_name;
+  if (email) user.email = email;
 
-    fs.writeFile("./MOCK_DATA.json", JSON.stringify(users, null, 2), (err) => {
-        if (err) return res.status(500).json({ message: "File write failed" });
-        res.json({ message: `User with id ${id} updated successfully` });
-    });
+  fs.writeFile("./MOCK_DATA.json", JSON.stringify(users, null, 2), (err) => {
+    if (err) return res.status(500).json({ message: "File write failed" });
+    res.json({ message: `User with id ${id} updated successfully` });
+  });
 });
-
 
 app.delete("/api/users/:id", (req, res) => {
-    const { id } = req.params;
-    const exists = users.some(user => user.id === Number(id));
-    if (!exists) return res.status(404).json({ message: "User not found" });
+  const { id } = req.params;
+  const exists = users.some((user) => user.id === Number(id));
+  if (!exists) return res.status(404).json({ message: "User not found" });
 
-    users = users.filter((user) => user.id !== Number(id));
+  users = users.filter((user) => user.id !== Number(id));
 
-    fs.writeFile("./MOCK_DATA.json", JSON.stringify(users, null, 2), (err) => {
-        if (err) return res.status(500).json({ message: "File write failed" });
-        res.json({ message: `User with id ${id} deleted successfully` });
-    });
+  fs.writeFile("./MOCK_DATA.json", JSON.stringify(users, null, 2), (err) => {
+    if (err) return res.status(500).json({ message: "File write failed" });
+    res.json({ message: `User with id ${id} deleted successfully` });
+  });
 });
 
+/*
+Better way to handle multiple HTTP methods for the same route:
+Instead of writing:
+
+  app.get("/api/users/:id", ...)
+  app.patch("/api/users/:id", ...)
+  app.delete("/api/users/:id", ...)
+
+We can use app.route() to group them in one place.
+This makes the code cleaner and easier to read.
+
+Example:
+
+app.route("/api/users/:id")
+.get((req, res) => {
+    const { id } = req.params;
+    const user = users.find((user) => user.id === Number(id));
+    res.json(user);
+})
+.patch((req, res) => {
+    const { id } = req.params;
+    const { first_name, last_name, email } = req.body;
+    const user = users.find((user) => user.id === Number(id));
+    if (!user) return res.status(404).json({ message: "User not found" });
+    if (first_name) user.first_name = first_name;
+    if (last_name) user.last_name = last_name;
+    if (email) user.email = email;
+    res.json(user);
+})
+.delete((req, res) => {
+    const { id } = req.params;
+    users = users.filter((user) => user.id !== Number(id));
+    res.json({ message: User with id ${id} deleted successfully });
+});
+
+This approach is recommended when multiple methods share the same path.
+
+*/
 
 app.listen(PORT, () => {
-    console.log(`Server started at http://localhost:${PORT}`);
+  console.log(`Server started at http://localhost:${PORT}`);
 });
