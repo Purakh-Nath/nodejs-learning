@@ -90,7 +90,9 @@ These status codes follow HTTP conventions and help clients understand what went
 
 Browsers naturally perform GET requests when you enter a URL, but testing POST, PATCH, and DELETE operations requires specialized tools. Postman provides a graphical interface for crafting requests with custom headers, bodies, and methods.
 
-## Testing with Postman
+<img width="1920" height="1080" alt="GET" src="https://github.com/user-attachments/assets/7d9c795c-5768-479e-80f0-0be134a83268" />
+
+<img width="1920" height="1080" alt="POST" src="https://github.com/user-attachments/assets/a17d1b72-3440-47ad-81e8-5e4e8be94f94" />
 
 
 When testing this API, you can observe status codes, response times, and payload sizes. For example, a successful POST returns status 200, while attempting to update a non-existent user returns 404. These details help verify that the API behaves correctly under different conditions.
