@@ -1,0 +1,16 @@
+{
+  "name": "18-nodejs-mongodb-connection",
+  "version": "1.0.0",
+  "description": "Mongoose-Express-Integration",
+  "license": "ISC",
+  "author": "purakhnath jyani",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --watch index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.1.4"
+  }
+}
